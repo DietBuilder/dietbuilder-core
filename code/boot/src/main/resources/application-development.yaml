@@ -1,0 +1,22 @@
+server:
+  port: 8080
+
+init-data:
+  file-path: /code/src/main/resources/static/init-data/init-data.xlsx
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+
+#spring:
+#  data:
+#    mongodb:
+#      uri: mongodb+srv://admin:xQOrZD5yVoVMOxei@cluster0.xxm0p.mongodb.net/dietbuilder?retryWrites=true&w=majority
+#      #adding auto indexing to validate all field with @Indexed annotation
+#      auto-index-creation: true
+

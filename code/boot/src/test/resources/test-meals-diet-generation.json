@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1,
+    "ingredients": [1,2],
+    "mealName": "mealName1",
+    "description": "description1",
+    "recipe": "recipe1",
+    "mealType": "BREAKFAST",
+    "calories": 500
+  }
+]

@@ -1,0 +1,661 @@
+openapi: "3.0.3"
+
+info:
+  title: Dietbuilder-engine
+  version: 0.1.0
+  description: Diet generation core rest API
+  contact:
+    name: Michał Chrust
+    email: michal.chrust@outlook.com
+
+servers:
+  - url: http://localhost:8090
+    description: Local environment
+
+paths:
+  /init/initDatabase:
+    post:
+      summary: Initialize a database.
+      operationId: initDatabase
+      responses:
+        '200':
+          description: Database has been initialized.
+  /comestibleProducts/byId/{comestibleProductId}:
+    parameters:
+      - $ref: "#/components/parameters/comestibleProductId"
+    get:
+      summary: Returns comestible product by ID
+      operationId: getComestibleProductById
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComestibleProduct'
+    delete:
+      summary: Delete a comestible product by ID.
+      operationId: deleteComestibleProductById
+      responses:
+        200:
+          description: Deleted
+  /comestibleProducts/byName/{comestibleProductName}:
+    get:
+      summary: Returns all comestible products with matching name
+      operationId: getComestibleProductsByName
+      parameters:
+        - $ref: "#/components/parameters/comestibleProductName"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ComestibleProduct'
+  /comestibleProducts:
+    get:
+      summary: Returns all comestible products
+      operationId: getAllComestibleProducts
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ComestibleProduct'
+    post:
+      summary: Insert a new comestible product.
+      operationId: insertComestibleProduct
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: '#/components/schemas/ComestibleProduct'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/ComestibleProduct'
+    patch:
+      summary: Insert or update (if exist) current comestible product. It updates only fields given in request body (the rest stay unchanged).
+      operationId: updateComestibleProduct
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: '#/components/schemas/ComestibleProduct'
+      responses:
+        200:
+          description: Updated
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/ComestibleProduct'
+    delete:
+      summary: Delete a comestible product. It takes ID from comestible product given in body and delete product with this ID from database.
+      operationId: deleteComestibleProduct
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: "#/components/schemas/ComestibleProduct"
+      responses:
+        200:
+          description: Deleted
+  /recipes/byId/{recipeId}:
+    parameters:
+      - $ref: "#/components/parameters/recipeId"
+    get:
+      summary: Get recipe by Id
+      operationId: getRecipeById
+      responses:
+         200:
+           description: OK
+           content:
+             application/json:
+               schema:
+                 $ref: '#/components/schemas/Recipe'
+    delete:
+      summary: Delete a recipe by ID.
+      operationId: deleteRecipeById
+      parameters:
+        - in: path
+          name: recipeId
+          required: true
+          schema:
+            type: integer
+            format: int64
+            minimum: 0
+      responses:
+        200:
+          description: Deleted
+  /recipes/byName/{recipeName}:
+    parameters:
+      - $ref: "#/components/parameters/recipeName"
+    get:
+      summary: Returns all recipes with matching name
+      operationId: getRecipesByName
+      responses:
+       200:
+         description: OK
+         content:
+           application/json:
+             schema:
+               type: array
+               items:
+                    $ref: '#/components/schemas/Recipe'
+  /recipes:
+    get:
+      summary: Returns all recipes
+      operationId: getAllRecipes
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Recipe'
+    post:
+      summary: Insert a new Recipe.
+      operationId: insertRecipe
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: '#/components/schemas/Recipe'
+      responses:
+        200:
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Recipe'
+    patch:
+      summary: Insert or update (if exist) current Recipe.
+      operationId: updateRecipe
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: '#/components/schemas/Recipe'
+      responses:
+        200:
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Recipe'
+    delete:
+      summary: Delete a recipe. It takes ID from recipe given in body and delete recipe with this ID from database.
+      operationId: deleteRecipe
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: "#/components/schemas/Recipe"
+      responses:
+        200:
+          description: Deleted
+  /diets/byUserId/{userId}:
+    parameters:
+      - $ref: '#/components/parameters/userId'
+    get:
+      summary: Find diet by user ID.
+      operationId: findDietByUserId
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Diet'
+  /diets/byDietId/{dietId}:
+    parameters:
+      - $ref: '#/components/parameters/dietId'
+    get:
+      summary: Find diet by diet ID.
+      operationId: findDietByDietId
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Diet'
+  /users/byUsername:
+    get:
+      summary: Get user by id.
+      operationId: getUserById
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+
+
+components:
+  parameters:
+    comestibleProductId:
+      in: path
+      name: comestibleProductId
+      required: true
+      description: Numeric ID of the comestible product to get
+      schema:
+        type: integer
+        format: int64
+        minimum: 0
+      example: 10
+    comestibleProductName:
+        in: path
+        name: comestibleProductName
+        required: true
+        schema:
+          type: string
+        example: "arb"
+    recipeId:
+        in: path
+        name: recipeId
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 0
+    recipeName:
+        in: path
+        name: recipeName
+        required: true
+        schema:
+          type: string
+    dietId:
+      in: path
+      name: dietId
+      required: true
+      schema:
+        type: integer
+        format: int64
+        minimum: 0
+    userId:
+      in: path
+      name: userId
+      required: true
+      schema:
+        type: integer
+        format: int64
+        minimum: 0
+  schemas:
+    ComestibleProduct:
+      type: object
+      required:
+        - productName
+      properties:
+        id:
+          type: integer
+          format: int64
+        productName:
+          type: string
+        litter:
+          type: number
+          format: double
+        foodEnergy:
+          type: integer
+          format: int32
+        water:
+          type: number
+          format: double
+        animalProtein:
+          type: number
+          format: double
+        vegetableProtein:
+          type: number
+          format: double
+        fat:
+          type: number
+          format: double
+        ash:
+          type: number
+          format: double
+        sodium:
+          type: number
+          format: double
+        potassium:
+          type: number
+          format: double
+        calcium:
+          type: number
+          format: double
+        phosphorus:
+          type: number
+          format: double
+        magnesium:
+          type: number
+          format: double
+        iron:
+          type: number
+          format: double
+        zinc:
+          type: number
+          format: double
+        copper:
+          type: number
+          format: double
+        manganese:
+          type: number
+          format: double
+        retinol:
+          type: number
+          format: double
+        betaCarotene:
+          type: number
+          format: double
+        vitaminD:
+          type: number
+          format: double
+        vitaminE:
+          type: number
+          format: double
+        thiamin:
+          type: number
+          format: double
+        riboflavin:
+          type: number
+          format: double
+        niacin:
+          type: number
+          format: double
+        vitaminB6:
+          type: number
+          format: double
+        folates:
+          type: number
+          format: double
+        vitaminB12:
+          type: number
+          format: double
+        vitaminC:
+          type: number
+          format: double
+        saturatedFattyAcids:
+          type: number
+          format: double
+        monounsaturatedFattyAcids:
+          type: number
+          format: double
+        polyunsaturatedFattyAcids:
+          type: number
+          format: double
+        cholesterol:
+          type: number
+          format: double
+        isoleucine:
+          type: number
+          format: double
+        leucin:
+          type: number
+          format: double
+        lysine:
+          type: number
+          format: double
+        methionine:
+          type: number
+          format: double
+        cystine:
+          type: number
+          format: double
+        phenylalanine:
+          type: number
+          format: double
+        tyrosine:
+          type: number
+          format: double
+        threonine:
+          type: number
+          format: double
+        tryptophan:
+          type: number
+          format: double
+        valine:
+          type: number
+          format: double
+        arginine:
+          type: number
+          format: double
+        histidine:
+          type: number
+          format: double
+        alanine:
+          type: number
+          format: double
+        asparticAcid:
+          type: number
+          format: double
+        glutamicAcid:
+          type: number
+          format: double
+        glycine:
+          type: number
+          format: double
+        proline:
+          type: number
+          format: double
+        serine:
+          type: number
+          format: double
+        sucrose:
+          type: number
+          format: double
+        lactose:
+          type: number
+          format: double
+        starch:
+          type: number
+          format: double
+        dietaryFibre:
+          type: number
+          format: double
+        percentOfEnergyFromProtein:
+          type: number
+          format: double
+        percentOfEnergyFromFat:
+          type: number
+          format: double
+        percentOfEnergyFromCarbohydrates:
+          type: number
+          format: double
+      example:
+        id: 12345
+        productName: "Lody waniliowe"
+        litter: 1
+        foodEnergy: 2
+        water: 3
+        animalProtein: 4
+        vegetableProtein: 5
+        fat: 6
+        ash: 7
+        sodium: 8
+        potassium: 9
+        calcium: 10
+        phosphorus: 11
+        magnesium: 12
+        iron: 13
+        zinc: 14
+        copper: 15
+        manganese: 16
+        retinol: 17
+        betaCarotene: 18
+        vitaminD: 19
+        vitaminE: 20
+        thiamin: 21
+        riboflavin: 22
+        niacin: 23
+        vitaminB6: 24
+        folates: 25
+        vitaminB12: 26
+        vitaminC: 27
+        saturatedFattyAcids: 28
+        monounsaturatedFattyAcids: 29
+        polyunsaturatedFattyAcids: 30
+        cholesterol: 31
+        isoleucine: 32
+        leucin: 33
+        lysine: 34
+        methionine: 35
+        cystine: 36
+        phenylalanine: 37
+        tyrosine: 38
+        threonine: 39
+        tryptophan: 40
+        valine: 41
+        arginine: 42
+        histidine: 43
+        alanine: 44
+        asparticAcid: 45
+        glutamicAcid: 46
+        glycine: 47
+        proline: 48
+        serine: 49
+        sucrose: 50
+        lactose: 51
+        starch: 52
+        dietaryFibre: 53
+        percentOfEnergyFromProtein: 54
+        percentOfEnergyFromFat: 55
+        percentOfEnergyFromCarbohydrates: 56
+    Ingredient:
+      type: object
+      required:
+        - comestibleProduct
+        - amount
+        - ingredientUnit
+      properties:
+        comestibleProduct:
+          type: object
+          $ref: '#/components/schemas/ComestibleProduct'
+        amount:
+          type: number
+          format: double
+        ingredientUnit:
+          enum:
+            - G
+            - ML
+            - UNIT
+            - SPOON
+      example:
+        comestibleProduct:
+        amount: 55
+        ingredientUnit: G
+    Recipe:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          format: int64
+        recipeName:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        meal:
+          enum:
+            - BREAKFAST
+            - BRUNCH
+            - DINNER
+            - TEA
+            - SUPPER
+            - test-test
+            - test_test2
+        ingredients:
+          items:
+            $ref: "#/components/schemas/Ingredient"
+      example:
+        id: 123
+        recipeName: Kaczka w miodzie
+        description: Pyszna kaczka w miodzie
+        recipe: dodaj, wymieszaj i jakoś wyjdzie
+        meal: BREAKFAST
+        ingredients:
+    Diet:
+      type: object
+      required:
+        - id
+        - dietStatus
+        - firstMealsList
+        - secondMealsList
+        - thirdMealsList
+      properties:
+        id:
+          type: integer
+          format: int64
+        dietStatus:
+          enum:
+            - IN_CREATION
+            - ACTIVE
+            - INACTIVE
+        firstMealsList:
+          items:
+            type: integer
+            format: int64
+        secondMealsList:
+          items:
+            type: integer
+            format: int64
+        thirdMealsList:
+          items:
+            type: integer
+            format: int64
+        fourthMealsList:
+          items:
+            type: integer
+            format: int64
+        fifthMealsList:
+          items:
+            type: integer
+            format: int64
+        sixthMealsList:
+          items:
+            type: integer
+            format: int64
+        seventhMealsList:
+          items:
+            type: integer
+            format: int64
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        email:
+          type: string

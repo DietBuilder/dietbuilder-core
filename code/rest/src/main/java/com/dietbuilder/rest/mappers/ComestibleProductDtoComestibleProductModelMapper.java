@@ -1,0 +1,218 @@
+package com.dietbuilder.rest.mappers;
+
+import com.dietbuilder.domain.daos.ComestibleProductDao;
+import com.dietbuilder.domain.exceptions.ComestibleProductNotFoundException;
+import com.dietbuilder.model.ComestibleProductDto;
+import com.dietbuilder.domain.model.comestible_product.ComestibleProduct;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.Objects;
+
+@Component
+@Slf4j
+public class ComestibleProductDtoComestibleProductModelMapper {
+
+    @Autowired
+    private ComestibleProductDao comestibleProductDao;
+
+    public ComestibleProduct sourceToDestination(ComestibleProductDto source) {
+        return ComestibleProduct.builder()
+                .id(Objects.nonNull(source.getId()) ? source.getId() : 0)
+                .productName(source.getProductName())
+                .litter(source.getLitter())
+                .foodEnergy(source.getFoodEnergy())
+                .water(source.getWater())
+                .animalProtein(source.getAnimalProtein())
+                .vegetableProtein(source.getVegetableProtein())
+                .fat(source.getFat())
+                .ash(source.getAsh())
+                .sodium(source.getSodium())
+                .potassium(source.getPotassium())
+                .calcium(source.getCalcium())
+                .phosphorus(source.getPhosphorus())
+                .magnesium(source.getMagnesium())
+                .iron(source.getIron())
+                .zinc(source.getZinc())
+                .copper(source.getCopper())
+                .manganese(source.getManganese())
+                .retinol(source.getRetinol())
+                .betaCarotene(source.getBetaCarotene())
+                .vitaminD(source.getVitaminD())
+                .vitaminE(source.getVitaminE())
+                .thiamin(source.getThiamin())
+                .riboflavin(source.getRiboflavin())
+                .niacin(source.getNiacin())
+                .vitaminB6(source.getVitaminB6())
+                .folates(source.getFolates())
+                .vitaminB12(source.getVitaminB12())
+                .vitaminC(source.getVitaminC())
+                .saturatedFattyAcids(source.getSaturatedFattyAcids())
+                .monounsaturatedFattyAcids(source.getMonounsaturatedFattyAcids())
+                .polyunsaturatedFattyAcids(source.getPolyunsaturatedFattyAcids())
+                .cholesterol(source.getCholesterol())
+                .isoleucine(source.getIsoleucine())
+                .leucin(source.getLeucin())
+                .lysine(source.getLysine())
+                .methionine(source.getMethionine())
+                .cystine(source.getCystine())
+                .phenylalanine(source.getPhenylalanine())
+                .tyrosine(source.getTyrosine())
+                .threonine(source.getThreonine())
+                .tryptophan(source.getTryptophan())
+                .valine(source.getValine())
+                .arginine(source.getArginine())
+                .histidine(source.getHistidine())
+                .alanine(source.getAlanine())
+                .asparticAcid(source.getAsparticAcid())
+                .glutamicAcid(source.getGlutamicAcid())
+                .glycine(source.getGlycine())
+                .proline(source.getProline())
+                .serine(source.getSerine())
+                .sucrose(source.getSucrose())
+                .lactose(source.getLactose())
+                .starch(source.getStarch())
+                .dietaryFibre(source.getDietaryFibre())
+                .percentOfEnergyFromProtein(source.getPercentOfEnergyFromProtein())
+                .percentOfEnergyFromFat(source.getPercentOfEnergyFromFat())
+                .percentOfEnergyFromCarbohydrates(source.getPercentOfEnergyFromCarbohydrates())
+                .build();
+    }
+
+    public ComestibleProductDto destinationToSource(ComestibleProduct destination) {
+        ComestibleProductDto comestibleProductDto = new ComestibleProductDto();
+        comestibleProductDto
+                .id(destination.getId())
+                .productName(destination.getProductName())
+                .litter(destination.getLitter())
+                .foodEnergy(destination.getFoodEnergy())
+                .water(destination.getWater())
+                .animalProtein(destination.getAnimalProtein())
+                .vegetableProtein(destination.getVegetableProtein())
+                .fat(destination.getFat())
+                .ash(destination.getAsh())
+                .sodium(destination.getSodium())
+                .potassium(destination.getPotassium())
+                .calcium(destination.getCalcium())
+                .phosphorus(destination.getPhosphorus())
+                .magnesium(destination.getMagnesium())
+                .iron(destination.getIron())
+                .zinc(destination.getZinc())
+                .copper(destination.getCopper())
+                .manganese(destination.getManganese())
+                .retinol(destination.getRetinol())
+                .betaCarotene(destination.getBetaCarotene())
+                .vitaminD(destination.getVitaminD())
+                .vitaminE(destination.getVitaminE())
+                .thiamin(destination.getThiamin())
+                .riboflavin(destination.getRiboflavin())
+                .niacin(destination.getNiacin())
+                .vitaminB6(destination.getVitaminB6())
+                .folates(destination.getFolates())
+                .vitaminB12(destination.getVitaminB12())
+                .vitaminC(destination.getVitaminC())
+                .saturatedFattyAcids(destination.getSaturatedFattyAcids())
+                .monounsaturatedFattyAcids(destination.getMonounsaturatedFattyAcids())
+                .polyunsaturatedFattyAcids(destination.getPolyunsaturatedFattyAcids())
+                .cholesterol(destination.getCholesterol())
+                .isoleucine(destination.getIsoleucine())
+                .leucin(destination.getLeucin())
+                .lysine(destination.getLysine())
+                .methionine(destination.getMethionine())
+                .cystine(destination.getCystine())
+                .phenylalanine(destination.getPhenylalanine())
+                .tyrosine(destination.getTyrosine())
+                .threonine(destination.getThreonine())
+                .tryptophan(destination.getTryptophan())
+                .valine(destination.getValine())
+                .arginine(destination.getArginine())
+                .histidine(destination.getHistidine())
+                .alanine(destination.getAlanine())
+                .asparticAcid(destination.getAsparticAcid())
+                .glutamicAcid(destination.getGlutamicAcid())
+                .glycine(destination.getGlycine())
+                .proline(destination.getProline())
+                .serine(destination.getSerine())
+                .sucrose(destination.getSucrose())
+                .lactose(destination.getLactose())
+                .starch(destination.getStarch())
+                .dietaryFibre(destination.getDietaryFibre())
+                .percentOfEnergyFromProtein(destination.getPercentOfEnergyFromProtein())
+                .percentOfEnergyFromFat(destination.getPercentOfEnergyFromFat())
+                .percentOfEnergyFromCarbohydrates(destination.getPercentOfEnergyFromCarbohydrates());
+        return comestibleProductDto;
+    }
+
+    public ComestibleProduct updateComestibleProduct(ComestibleProductDto givenComestibleProduct) {
+        ComestibleProduct currentComestibleProduct;
+        try {
+             currentComestibleProduct = comestibleProductDao.get(givenComestibleProduct.getId());
+        } catch (ComestibleProductNotFoundException e) {
+            log.info("Comestible product with this ID does not exist. Creating new one.");
+            return sourceToDestination(givenComestibleProduct);
+        }
+
+        return ComestibleProduct.builder()
+                .id(givenComestibleProduct.getId())
+                .productName(givenComestibleProduct.getProductName() != null ? givenComestibleProduct.getProductName() : currentComestibleProduct.getProductName())
+                .ingredients(currentComestibleProduct.getIngredients())
+                .litter(givenComestibleProduct.getLitter() != null ? givenComestibleProduct.getLitter() : currentComestibleProduct.getLitter())
+                .foodEnergy(givenComestibleProduct.getFoodEnergy() != null ? givenComestibleProduct.getFoodEnergy() : currentComestibleProduct.getFoodEnergy())
+                .water(givenComestibleProduct.getWater() != null ? givenComestibleProduct.getWater() : currentComestibleProduct.getWater())
+                .animalProtein(givenComestibleProduct.getAnimalProtein() != null ? givenComestibleProduct.getAnimalProtein() : currentComestibleProduct.getAnimalProtein())
+                .vegetableProtein(givenComestibleProduct.getVegetableProtein() != null ? givenComestibleProduct.getVegetableProtein() : currentComestibleProduct.getVegetableProtein())
+                .fat(givenComestibleProduct.getFat() != null ? givenComestibleProduct.getFat() : currentComestibleProduct.getFat())
+                .ash(givenComestibleProduct.getAsh() != null ? givenComestibleProduct.getAsh() : currentComestibleProduct.getAsh())
+                .sodium(givenComestibleProduct.getSodium() != null ? givenComestibleProduct.getSodium() : currentComestibleProduct.getSodium())
+                .potassium(givenComestibleProduct.getPotassium() != null ? givenComestibleProduct.getPotassium() : currentComestibleProduct.getPotassium())
+                .calcium(givenComestibleProduct.getCalcium() != null ? givenComestibleProduct.getCalcium() : currentComestibleProduct.getCalcium())
+                .phosphorus(givenComestibleProduct.getPhosphorus() != null ? givenComestibleProduct.getPhosphorus() : currentComestibleProduct.getPhosphorus())
+                .magnesium(givenComestibleProduct.getMagnesium() != null ? givenComestibleProduct.getMagnesium() : currentComestibleProduct.getMagnesium())
+                .iron(givenComestibleProduct.getIron() != null ? givenComestibleProduct.getIron() : currentComestibleProduct.getIron())
+                .zinc(givenComestibleProduct.getZinc() != null ? givenComestibleProduct.getZinc() : currentComestibleProduct.getZinc())
+                .copper(givenComestibleProduct.getCopper() != null ? givenComestibleProduct.getCopper() : currentComestibleProduct.getCopper())
+                .manganese(givenComestibleProduct.getManganese() != null ? givenComestibleProduct.getManganese() : currentComestibleProduct.getManganese())
+                .retinol(givenComestibleProduct.getRetinol() != null ? givenComestibleProduct.getRetinol() : currentComestibleProduct.getRetinol())
+                .betaCarotene(givenComestibleProduct.getBetaCarotene() != null ? givenComestibleProduct.getBetaCarotene() : currentComestibleProduct.getBetaCarotene())
+                .vitaminD(givenComestibleProduct.getVitaminD() != null ? givenComestibleProduct.getVitaminD() : currentComestibleProduct.getVitaminD())
+                .vitaminE(givenComestibleProduct.getVitaminE() != null ? givenComestibleProduct.getVitaminE() : currentComestibleProduct.getVitaminE())
+                .thiamin(givenComestibleProduct.getThiamin() != null ? givenComestibleProduct.getThiamin() : currentComestibleProduct.getThiamin())
+                .riboflavin(givenComestibleProduct.getRiboflavin() != null ? givenComestibleProduct.getRiboflavin() : currentComestibleProduct.getRiboflavin())
+                .niacin(givenComestibleProduct.getNiacin() != null ? givenComestibleProduct.getNiacin() : currentComestibleProduct.getNiacin())
+                .vitaminB6(givenComestibleProduct.getVitaminB6() != null ? givenComestibleProduct.getVitaminB6() : currentComestibleProduct.getVitaminB6())
+                .folates(givenComestibleProduct.getFolates() != null ? givenComestibleProduct.getFolates() : currentComestibleProduct.getFolates())
+                .vitaminB12(givenComestibleProduct.getVitaminB12() != null ? givenComestibleProduct.getVitaminB12() : currentComestibleProduct.getVitaminB12())
+                .vitaminC(givenComestibleProduct.getVitaminC() != null ? givenComestibleProduct.getVitaminC() : currentComestibleProduct.getVitaminC())
+                .saturatedFattyAcids(givenComestibleProduct.getSaturatedFattyAcids() != null ? givenComestibleProduct.getSaturatedFattyAcids() : currentComestibleProduct.getSaturatedFattyAcids())
+                .monounsaturatedFattyAcids(givenComestibleProduct.getMonounsaturatedFattyAcids() != null ? givenComestibleProduct.getMonounsaturatedFattyAcids() : currentComestibleProduct.getMonounsaturatedFattyAcids())
+                .polyunsaturatedFattyAcids(givenComestibleProduct.getPolyunsaturatedFattyAcids() != null ? givenComestibleProduct.getPolyunsaturatedFattyAcids() : currentComestibleProduct.getPolyunsaturatedFattyAcids())
+                .cholesterol(givenComestibleProduct.getCholesterol() != null ? givenComestibleProduct.getCholesterol() : currentComestibleProduct.getCholesterol())
+                .isoleucine(givenComestibleProduct.getIsoleucine() != null ? givenComestibleProduct.getIsoleucine() : currentComestibleProduct.getIsoleucine())
+                .leucin(givenComestibleProduct.getLeucin() != null ? givenComestibleProduct.getLeucin() : currentComestibleProduct.getLeucin())
+                .lysine(givenComestibleProduct.getLysine() != null ? givenComestibleProduct.getLysine() : currentComestibleProduct.getLysine())
+                .methionine(givenComestibleProduct.getMethionine() != null ? givenComestibleProduct.getMethionine() : currentComestibleProduct.getMethionine())
+                .cystine(givenComestibleProduct.getCystine() != null ? givenComestibleProduct.getCystine() : currentComestibleProduct.getCystine())
+                .phenylalanine(givenComestibleProduct.getPhenylalanine() != null ? givenComestibleProduct.getPhenylalanine() : currentComestibleProduct.getPhenylalanine())
+                .tyrosine(givenComestibleProduct.getTyrosine() != null ? givenComestibleProduct.getTyrosine() : currentComestibleProduct.getTyrosine())
+                .threonine(givenComestibleProduct.getThreonine() != null ? givenComestibleProduct.getThreonine() : currentComestibleProduct.getThreonine())
+                .tryptophan(givenComestibleProduct.getTryptophan() != null ? givenComestibleProduct.getTryptophan() : currentComestibleProduct.getTryptophan())
+                .valine(givenComestibleProduct.getValine() != null ? givenComestibleProduct.getValine() : currentComestibleProduct.getValine())
+                .arginine(givenComestibleProduct.getArginine() != null ? givenComestibleProduct.getArginine() : currentComestibleProduct.getArginine())
+                .histidine(givenComestibleProduct.getHistidine() != null ? givenComestibleProduct.getHistidine() : currentComestibleProduct.getHistidine())
+                .alanine(givenComestibleProduct.getAlanine() != null ? givenComestibleProduct.getAlanine() : currentComestibleProduct.getAlanine())
+                .asparticAcid(givenComestibleProduct.getAsparticAcid() != null ? givenComestibleProduct.getAsparticAcid() : currentComestibleProduct.getAsparticAcid())
+                .glutamicAcid(givenComestibleProduct.getGlutamicAcid() != null ? givenComestibleProduct.getGlutamicAcid() : currentComestibleProduct.getGlutamicAcid())
+                .glycine(givenComestibleProduct.getGlycine() != null ? givenComestibleProduct.getGlycine() : currentComestibleProduct.getGlycine())
+                .proline(givenComestibleProduct.getProline() != null ? givenComestibleProduct.getProline() : currentComestibleProduct.getProline())
+                .serine(givenComestibleProduct.getSerine() != null ? givenComestibleProduct.getSerine() : currentComestibleProduct.getSerine())
+                .sucrose(givenComestibleProduct.getSucrose() != null ? givenComestibleProduct.getSucrose() : currentComestibleProduct.getSucrose())
+                .lactose(givenComestibleProduct.getLactose() != null ? givenComestibleProduct.getLactose() : currentComestibleProduct.getLactose())
+                .starch(givenComestibleProduct.getStarch() != null ? givenComestibleProduct.getStarch() : currentComestibleProduct.getStarch())
+                .dietaryFibre(givenComestibleProduct.getDietaryFibre() != null ? givenComestibleProduct.getDietaryFibre() : currentComestibleProduct.getDietaryFibre())
+                .percentOfEnergyFromProtein(givenComestibleProduct.getPercentOfEnergyFromProtein() != null ? givenComestibleProduct.getPercentOfEnergyFromProtein() : currentComestibleProduct.getPercentOfEnergyFromProtein())
+                .percentOfEnergyFromFat(givenComestibleProduct.getPercentOfEnergyFromFat() != null ? givenComestibleProduct.getPercentOfEnergyFromFat() : currentComestibleProduct.getPercentOfEnergyFromFat())
+                .percentOfEnergyFromCarbohydrates(givenComestibleProduct.getPercentOfEnergyFromCarbohydrates() != null ? givenComestibleProduct.getPercentOfEnergyFromCarbohydrates() : currentComestibleProduct.getPercentOfEnergyFromCarbohydrates())
+                .build();
+    }
+}

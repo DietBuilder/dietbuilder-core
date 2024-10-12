@@ -1,0 +1,47 @@
+server:
+  port: 8090
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: user
+    password: password
+    queue: dietbuilder.engine.gateway-queue
+
+
+# enabling metrics
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+init-data:
+  file-path: /code/src/main/resources/static/init-data/init-data.xlsx
+
+# the realm name
+keycloak:
+  realm: demo-realm
+  auth-server-url: http://localhost:8080/auth
+  ssl-required: external
+  resource: demo-spring-boot # client name
+  bearer-only: true
+  credentials.secret: 0c956d7e-9470-42e5-bb61-5f3c49f6bd67 # the client secret you findit under client->the client name->credential
+  use-resource-role-mappings: true
+  principal-attribute: preferred_username
+  securityConstraints[0].authRoles[0]: ROLE_ADMIN # Secured and only for role admin
+  securityConstraints[0].securityCollections[0].patterns[0]: /api/demo
+  security-constraints[1].authRoles[0]: ROLE_MANAGER # Secured and only for role manager
+  security-constraints[1].securityCollections[0].patterns[0]: /api/manager
