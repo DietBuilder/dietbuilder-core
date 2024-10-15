@@ -18,7 +18,6 @@
     <modules>
         <module>rest</module>
         <module>application</module>
-        <module>database-initializer</module>
         <module>domain</module>
         <module>boot</module>
         <module>rabbitmq-user-listener</module>
