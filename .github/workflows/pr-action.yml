@@ -43,5 +43,5 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: ${{ env.APP_VERSION }}
+          tags: TEST_TAG
           file: Dockerfile
