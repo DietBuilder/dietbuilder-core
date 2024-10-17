@@ -75,7 +75,6 @@ paths:
         content:
           application/json:
             schema:
-              type: object
               $ref: '#/components/schemas/ComestibleProduct'
       responses:
         201:
@@ -83,7 +82,6 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/ComestibleProduct'
     patch:
       summary: Insert or update (if exist) current comestible product. It updates only fields given in request body (the rest stay unchanged).
@@ -93,7 +91,6 @@ paths:
         content:
           application/json:
             schema:
-              type: object
               $ref: '#/components/schemas/ComestibleProduct'
       responses:
         200:
@@ -101,7 +98,6 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/ComestibleProduct'
     delete:
       summary: Delete a comestible product. It takes ID from comestible product given in body and delete product with this ID from database.
@@ -111,7 +107,6 @@ paths:
         content:
           application/json:
             schema:
-              type: object
               $ref: "#/components/schemas/ComestibleProduct"
       responses:
         200:
@@ -179,7 +174,6 @@ paths:
         content:
           application/json:
             schema:
-              type: object
               $ref: '#/components/schemas/Recipe'
       responses:
         200:
@@ -196,7 +190,6 @@ paths:
         content:
           application/json:
             schema:
-              type: object
               $ref: '#/components/schemas/Recipe'
       responses:
         200:
@@ -213,7 +206,6 @@ paths:
         content:
           application/json:
             schema:
-              type: object
               $ref: "#/components/schemas/Recipe"
       responses:
         200:
@@ -558,7 +550,6 @@ components:
         - ingredientUnit
       properties:
         comestibleProduct:
-          type: object
           $ref: '#/components/schemas/ComestibleProduct'
         amount:
           type: number
