@@ -43,5 +43,5 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: diet-builder:${{ env.APP_VERSION }}
+          tags: ${{ env.APP_VERSION }}
           file: Dockerfile
