@@ -20,6 +20,10 @@ jobs:
           distribution: 'temurin' # See 'Supported distributions' for available options
           java-version: '21'
 
+      - name: Set App version
+        run: |
+          VER=$(grep -m 1 '<version>' pom.xml | sed 's/.*<version>\(.*\)<\/version>.*/\1/')
+
       - name: Run unit tests
         run: mvn -B test --file code/pom.xml
 
@@ -39,5 +43,5 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: diet-builder:$(date +%s)
+          tags: diet-builder:$VER
           file: Dockerfile
