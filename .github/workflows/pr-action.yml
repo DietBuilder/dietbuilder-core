@@ -17,12 +17,12 @@ jobs:
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin' # See 'Supported distributions' for available options
+          distribution: 'temurin'
           java-version: '21'
 
-      - name: Set App version
-        run: |
-          APP_VERSION=$(grep -m 1 '<version>' pom.xml | sed 's/.*<version>\(.*\)<\/version>.*/\1/')
+#      - name: Set App version
+#        run: |
+#          APP_VERSION=$(grep -m 1 '<version>' pom.xml | sed 's/.*<version>\(.*\)<\/version>.*/\1/')
 
       - name: Run unit tests
         run: mvn -B test --file code/pom.xml
@@ -32,22 +32,31 @@ jobs:
           mvn clean --file code/pom.xml
           mvn -B package --file code/pom.xml
 
-      - name: Docker Login
-        uses: azure/docker-login@v1
-        with:
-          login-server: ${{ secrets.AZURE_URL }}
-          username: ${{ secrets.ACR_USERNAME }}
-          password: ${{ secrets.ACR_PASSWORD }}
+#      - name: Docker Login
+#        uses: azure/docker-login@v1
+#        with:
+#          login-server: ${{ secrets.AZURE_URL }}
+#          username: ${{ secrets.ACR_USERNAME }}
+#          password: ${{ secrets.ACR_PASSWORD }}
+#
+#      - name: Build Spring Boot Image
+#        id: build
+#        uses: teheidoma/spring-boot-image-build-action@0.0.3
+#        with:
+#          jdk_dist: '21.0.10-graal'
+#          registry_username: ${{ secrets.REGISTRY_USERNAME }}
+#          registry_password: ${{ secrets.REGISTRY_PASSWORD }}
+#          registry_hostname: 'docker.io'
+#          include_commit_sha: 'true'
 
-      - name: Build Spring Boot Image
-        id: build
-        uses: teheidoma/spring-boot-image-build-action@0.0.3
+      - name: Copy Jar file
+        run: mv build/libs/$(ls build/libs) app.jar
+
+      - uses: actions/upload-artifact@master
         with:
-          jdk_dist: '21.0.10-graal'
-          registry_username: ${{ secrets.REGISTRY_USERNAME }}
-          registry_password: ${{ secrets.REGISTRY_PASSWORD }}
-          registry_hostname: 'docker.io'
-          include_commit_sha: 'true'
+          name: jar-file
+          path: app.jar
+
 
 #      - name: Build and Push to ACR
 #        uses: docker/build-push-action@v2
