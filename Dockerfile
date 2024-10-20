@@ -4,7 +4,7 @@ RUN mkdir /app
 
 WORKDIR /app
 
-COPY ./code/boot/target/boot-0.2.0-SNAPSHOT.jar /app/springapi-docker.jar
+COPY app.jar /app/app.jar
 
 EXPOSE 8080
 
