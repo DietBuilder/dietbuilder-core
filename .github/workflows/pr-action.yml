@@ -102,4 +102,4 @@ jobs:
         with:
           context: .
           push: true
-          tags:  ${{ secrets.REGISTRY_LOGIN_SERVER }}/dietbuilder-core:${{ env.DATE }}
+          tags:  ${{ secrets.AZURE_URL }}/dietbuilder-core:${{ env.DATE }}
