@@ -52,7 +52,7 @@ jobs:
 #          include_commit_sha: 'true'
 
       - name: Copy Jar file
-        run: mv build/libs/$(ls build/libs) app.jar
+        run: mv ./code/boot/target/boot-0.2.0-SNAPSHOT.jar app.jar
 
       - uses: actions/upload-artifact@master
         with:
