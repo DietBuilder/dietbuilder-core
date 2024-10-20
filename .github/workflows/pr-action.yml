@@ -102,4 +102,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: thearaseng/dockerized-spring-boot-app:${{ env.DATE }}
+          tags: dietbuilder/dietbuilder-core:${{ env.DATE }}
