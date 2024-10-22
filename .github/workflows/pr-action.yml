@@ -59,14 +59,9 @@ jobs:
           login-server: ${{ secrets.AZURE_URL }}
           username: ${{ secrets.ACR_USERNAME }}
           password: ${{ secrets.ACR_PASSWORD }}
-      - name: Set env
-        run: |
-          pwd
-          ls -a
-          ls /code
 
       - name: Set env
-        run: echo "APP_VERSION=$(grep -m 1 '<version>' pom.xml | sed 's/.*<version>\(.*\)<\/version>.*/\1/') >> $IMAGE_TAG"
+        run: echo "APP_VERSION=$(grep -m 1 '<version>' code/pom.xml | sed 's/.*<version>\(.*\)<\/version>.*/\1/') >> $IMAGE_TAG"
 
       - name: Build and push
         uses: docker/build-push-action@v5
