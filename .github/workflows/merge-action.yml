@@ -23,15 +23,8 @@ jobs:
 
       - name: Set artifact version
         run: |
-          mvn --batch-mode build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion} 
+          mvn -f code/pom.xml --batch-mode build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion} 
           echo "PROJECT_VERSION=$(grep -m 1 '<version>' code/pom.xml | sed 's/.*<version>\(.*\)<\/version>.*/\1/')" >> $GITHUB_ENV
-
-      - uses: EndBug/add-and-commit@v9
-        with:
-          add: 'code'
-          author_name: 'Michał Chrust'
-          author_email: 'michal.chrust@outlook.com'
-          message: 'Update service minor version'
 
       - name: Build with Maven
         run: |
@@ -65,7 +58,7 @@ jobs:
 
       - name: Set artifact version
         run: |
-          mvn --batch-mode build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion} 
+          mvn -f code/pom.xml --batch-mode build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion} 
           echo "PROJECT_VERSION=$(grep -m 1 '<version>' code/pom.xml | sed 's/.*<version>\(.*\)<\/version>.*/\1/')" >> $GITHUB_ENV
 
       - name: Download jar artifact
@@ -111,7 +104,7 @@ jobs:
 
       - name: Set artifact version
         run: |
-          mvn --batch-mode build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.incrementalVersion}-SNAPSHOT
+          mvn -f code/pom.xml --batch-mode build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.incrementalVersion}-SNAPSHOT
 
       - uses: EndBug/add-and-commit@v9
         with:
