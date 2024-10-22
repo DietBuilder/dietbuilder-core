@@ -61,7 +61,7 @@ jobs:
           password: ${{ secrets.ACR_PASSWORD }}
 
       - name: Set env
-        run: echo "IMAGE_TAG=$(grep -m 1 '<version>' code/pom.xml | sed 's/.*<version>\(.*\)<\/version>.*/\1/') >> $IMAGE_TAG"
+        run: echo "IMAGE_TAG=$(grep -m 1 '<version>' code/pom.xml | sed 's/.*<version>\(.*\)<\/version>.*/\1/') >> $GITHUB_ENV"
 
       - name: Build and push
         uses: docker/build-push-action@v5
