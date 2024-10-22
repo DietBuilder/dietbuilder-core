@@ -88,12 +88,7 @@ jobs:
         run: |
           mvn -f code/pom.xml --batch-mode build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion}-SNAPSHOT
 
-      - uses: stefanzweifel/git-auto-commit-action@v5
+      - uses: EndBug/add-and-commit@v9
         with:
-          commit_message: Update service SNAPSHOT
-#      - uses: EndBug/add-and-commit@v9 # You can change this to use a specific version.
-#        with:
-#          add: '.'
-#          author_name: 'Michał Chrust'
-#          author_email: 'michal.chrust@outlook.com'
-#          message: 'Update service SNAPSHOT'
+          add: '.'
+          message: 'Update service SNAPSHOT'
