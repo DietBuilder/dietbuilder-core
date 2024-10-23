@@ -6,12 +6,12 @@ on:
 
 jobs:
   prepare-pull-request:
-    name: Prepare pull request
     runs-on: ubuntu-latest
-    if: !contains(join(github.event.issue.labels.*.name, ' '), 'release:')
+    name: Prepare pull request
     steps:
       - name: Add hotfix release label if required
         uses: actions-ecosystem/action-add-labels@v1
+        if: !contains(join(github.event.issue.labels.*.name, ' '), 'release:')
         with:
           labels: |
             release:hotfix
