@@ -1,4 +1,4 @@
-name: pr-action.yml
+name: pr action
 
 on:
   pull_request:
