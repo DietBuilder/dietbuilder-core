@@ -1,4 +1,4 @@
-name: pr action
+name: pr-action.yml
 
 on:
   pull_request:
@@ -14,7 +14,7 @@ jobs:
         uses: actions-ecosystem/action-add-labels@v1
         with:
           labels:
-            'release:hotfix'
+            release:hotfix
 
   build-jar-and-push:
     name: Build and send to registry
