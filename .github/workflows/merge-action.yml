@@ -102,13 +102,3 @@ jobs:
           add: '.'
           message: 'Update SNAPSHOT version'
           author_name: github_bot
-
-  post-build-actions:
-    runs-on: ubuntu-latest
-    needs: build-image-and-push
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-
-
