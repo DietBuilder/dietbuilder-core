@@ -55,11 +55,11 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - id: flow-type
-        run: |
-          echo ::set-output name=release_minor::${{ contains(join(github.event.issue.labels.*.name, ' '), 'release:minor') }}
-          echo ::set-output name=release_major::${{ contains(join(github.event.issue.labels.*.name, ' '), 'release:major') }}
-          echo ::set-output name=hotfix::${{ contains(join(github.event.issue.labels.*.name, ' '), 'release:hotfix') }}
+      - name: Get PR labels
+        id: pr-labels
+        uses: irby/get-labels-on-push@v1.0.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Download jar artifact
         uses: actions/download-artifact@master
@@ -68,19 +68,19 @@ jobs:
           path: app.jar
 
       - name: Update hotfix version
-        if: steps.flow-type.outputs.hotfix == 'true'
+        if: ${{ contains(steps.pr-labels.outputs.labels, ' release:hotfix') }}
         run: |
           mvn -f code/pom.xml --batch-mode build-helper:parse-version versions:set -DgenerateBackupPoms=false -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.incrementalVersion}
           echo "PROJECT_VERSION=$(grep -m 1 '<version>' code/pom.xml | sed 's/.*<version>\(.*\)<\/version>.*/\1/')" >> $GITHUB_ENV
 
       - name: Update hotfix version
-        if: steps.flow-type.outputs.release_minor == 'true'
+        if: ${{ contains(steps.pr-labels.outputs.labels, ' release:minor') }}
         run: |
           mvn -f code/pom.xml --batch-mode build-helper:parse-version versions:set -DgenerateBackupPoms=false -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.nextMinorVersion}.\${parsedVersion.incrementalVersion}
           echo "PROJECT_VERSION=$(grep -m 1 '<version>' code/pom.xml | sed 's/.*<version>\(.*\)<\/version>.*/\1/')" >> $GITHUB_ENV
 
       - name: Update hotfix version
-        if: steps.flow-type.outputs.release_major == 'true'
+        if: ${{ contains(steps.pr-labels.outputs.labels, ' release:major') }}
         run: |
           mvn -f code/pom.xml --batch-mode build-helper:parse-version versions:set -DgenerateBackupPoms=false -DnewVersion=\${parsedVersion.nextMajorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.incrementalVersion}
           echo "PROJECT_VERSION=$(grep -m 1 '<version>' code/pom.xml | sed 's/.*<version>\(.*\)<\/version>.*/\1/')" >> $GITHUB_ENV
