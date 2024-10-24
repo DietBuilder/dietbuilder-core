@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Add hotfix release label if required
         uses: actions-ecosystem/action-add-labels@v1
-        if: !contains(join(github.event.issue.labels.*.name, ' '), 'release:')
+        if: ${{ ! contains(join(github.event.issue.labels.*.name, ' '), 'release:') }}
         with:
           labels: |
             release:hotfix
