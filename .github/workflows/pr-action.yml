@@ -1,13 +1,25 @@
-name: Docker Image CI
+name: pr-action.yml
 
 on:
   pull_request:
     branches: [ "main" ]
 
 jobs:
+  prepare-pull-request:
+    runs-on: ubuntu-latest
+    name: Prepare pull request
+    steps:
+      - name: Add hotfix release label if required
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ ! contains(join(github.event.issue.labels.*.name, ' '), 'release:') }}
+        with:
+          labels: |
+            release:hotfix
+
   build-jar-and-push:
     name: Build and send to registry
     runs-on: ubuntu-latest
+    needs: prepare-pull-request
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
